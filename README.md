@@ -8,6 +8,8 @@ bikeshare.py
 
 ### Description
 a bike share system provider for many major cities in the United States, to uncover bike share usage patterns. I compared the system usage between three large cities: Chicago, New York City, and Washington, DC.
+
+Made by Yasser Al-Ali
 ### Files used
 chicago.csv
 new_york_city.csv
