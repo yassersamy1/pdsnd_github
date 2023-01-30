@@ -73,28 +73,17 @@ def load_data(city, month, day):
     df['week day'] = df['week day'].str.lower()
     df['Start Hour'] = df['Start Time'].dt.hour
 
-    # --- debug ----
-    # print(df["Start Time"])
-    # print(df["month"])
-    # print(df["week day"])
-    # print(df['Start Hour'])
-    # print(df.head())
+    
     if month != 'all':
-        # month = months.index(month) + 1
-        # print("flag 1")
-        # print("is there a month here???", month)
-        # df = df[df['month'] == month]
+    
         df = df[df['month'] == month]
-        # print("flag 2")
+ 
         
         
     if day != 'all':
-        # print("flag 3")
-        # print("is there a day here???", day)
-        df = df[df['week day'] == day]
-        # print("flag 4")
        
-    # print("flag 1: after ", df.shape[0])
+        df = df[df['week day'] == day]
+        
     return df
 
 
