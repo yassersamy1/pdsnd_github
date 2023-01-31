@@ -2,7 +2,7 @@ import time
 import pandas as pd
 import numpy as np
 #Made by Yasser Al-Ali
-#30/1/2023
+#31/1/2023
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
@@ -10,7 +10,6 @@ CITY_DATA = { 'chicago': 'chicago.csv',
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
-
     Returns:
         (str) city - name of the city to analyze
         (str) month - name of the month to filter by, or "all" to apply no month filter
@@ -54,7 +53,6 @@ def get_filters():
 def load_data(city, month, day):
     """
     Loads data for the specified city and filters by month and day if applicable.
-
     Args:
         (str) city - name of the city to analyze
         (str) month - name of the month to filter by, or "all" to apply no month filter
@@ -154,28 +152,41 @@ def trip_duration_stats(df):
     print('-'*40)
 
 
-def user_stats(df):
+def user_stats(df, city):
     """Displays statistics on bikeshare users."""
+    if city == 'washington':
+        return
+    else:
+        print('\nCalculating User Stats...\n')
+        start_time = time.time()
 
-    print('\nCalculating User Stats...\n')
-    start_time = time.time()
+        # TO DO: Display counts of user types
+        user_type = df["User Type"].nunique()
+        print("The counts of user types is ", user_type)
 
-    # TO DO: Display counts of user types
-    user_type = df["User Type"].nunique()
-    print("The counts of user types is ", user_type)
+        # TO DO: Display counts of gender
+        gender = df["Gender"].nunique()
+        print("The counts of genders are ", user_type)
 
-    # TO DO: Display counts of gender
-    gender = df["Gender"].nunique()
-    print("The counts of genders are ", user_type)
+        # TO DO: Display earliest, most recent, and most common year of birth
+        earliest = df["Birth Year"].min()
+        recent = df["Birth Year"].max()
+        common = df["Birth Year"].mode()
+        print("The earliest, most recent, and most common year of birth are ", earliest, recent, common)
 
-    # TO DO: Display earliest, most recent, and most common year of birth
-    earliest = df["Birth Year"].min()
-    recent = df["Birth Year"].max()
-    common = df["Birth Year"].mode()
-    print("The earliest, most recent, and most common year of birth are ", earliest, recent, common)
+        print("\nThis took %s seconds." % (time.time() - start_time))
+        print('-'*40)
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+def display_data(df):
+    """Display 5 rows at a time"""
+    view_data = input('\n would you like to view 5 rows of data? [Y]es, or [N]o').capitalize()
+    start_index=0
+    while(view_data=='Y'):
+        print(df.iloc[start_index:start_index+5])
+        print("flag 11")
+
+        start_index+=5
+        view_data = input("continue? [Y]/[N]").capitalize()
 
 
 def main():
@@ -186,7 +197,8 @@ def main():
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
-        user_stats(df)
+        user_stats(df, city)
+        display_data(df)
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
